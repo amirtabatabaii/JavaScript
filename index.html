@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Workout JavaScript</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style type="text/css">
+        .height {
+            min-height: 50vh;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container-fluid bg-warning text-center py-3">
+        <div class="">
+            <h1>Simple Workout JavaScript</h1>
+        </div>
+    </div>
+    <!-- Simple Calculator -->
+    <div class="container-fluid bg-success text-center py-3">
+        <div class="container">
+            <div class="row height align-items-center">
+                <div class="col">
+                    <h1 class="m-3">Simple Calculator</h1>
+                    <div class="m-3">
+                        First : <input type="text" id="num1" value="0">
+                        Second : <input type="text" id="num2" value="0">
+                    </div>
+                    <div class="m-3">
+                        <a href="#" onClick="addBy()" class="btn btn-outline-warning btn-lg text-capitalize">Add</a>
+                        <a href="#" onClick="subBy()"
+                            class="btn btn-outline-warning btn-lg text-capitalize">Subtract</a>
+                        <a href="#" onClick="mulBy()"
+                            class="btn btn-outline-warning btn-lg text-capitalize">Multiply</a>
+                        <a href="#" onClick="divBy()" class="btn btn-outline-warning btn-lg text-capitalize">Divide</a>
+                        <a href="#" onClick="modBy()" class="btn btn-outline-warning btn-lg text-capitalize">modulus</a>
+                        <a href="#" onClick="clearBy()" class="btn btn-outline-danger btn-lg text-capitalize">Clear</a>
+                    </div>
+                    <div class="container bg-primary m-2" id="output"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Simple Calculator -->
+    <!-- shuffle Simple Array -->
+    <div class="container-fluid bg-info text-center py-3">
+        <div class="container">
+            <div class="row height align-items-center">
+                <div class="col">
+                    <h1 class="m-3">Shuffle Simple Array</h1>
+                    <a href="#" onClick="start()" class="btn btn-outline-warning btn-lg text-capitalize">Start</a>
+                    <div class="container bg-primary m-2" id="shuffleOutput">shuffleOutput</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of shuffle Simple Array -->
+    <script>
+        //Simple Calculator
+        let output = document.getElementById("output");
+        let num1 = document.getElementById("num1")
+        let num2 = document.getElementById("num2")
+
+        function clearBy() {
+            output.innerHTML = "";
+            document.getElementById("num1").value = "0";
+            document.getElementById("num2").value = "0";
+        }
+
+        function subBy() {
+            outC(num1.value, num2.value, "-",
+                function (num1, num2) {
+                    return num1 - num2;
+                })
+        }
+
+        function mulBy() {
+            outC(num1.value, num2.value, "*",
+                function (num1, num2) {
+                    return num1 * num2;
+                })
+        }
+
+        function divBy() {
+            outC(num1.value, num2.value, "/",
+                function (num1, num2) {
+                    return num1 / num2;
+                })
+        }
+
+        function modBy() {
+            outC(num1.value, num2.value, "%",
+                function (num1, num2) {
+                    return num1 % num2;
+                })
+        }
+
+        function addBy() {
+            outC(num1.value, num2.value, "+",
+                function (num1, num2) {
+                    return num1 + num2;
+                })
+        }
+
+        function outC(num1, num2, sign, cBack) {
+            let result = cBack(Number(num1), Number(num2));
+            output.innerHTML += num1 + " " + sign + " " + num2 + " = " + result + "<br>";
+        }
+        //End of Simple Calculator
+
+
+        //shuffle Simple Array
+        var secretWord = ["JavaScript", "html", "css", "website", "a", 2, 4, 5, 6, 3, 4, 4, 5];
+        var shuffleOutput = document.getElementById("shuffleOutput");
+
+        function start() {
+            shuffleArray(secretWord);
+            shuffleOutput.innerHTML += secretWord + "<br>";
+        }
+
+        function shuffleArray(arr) {
+            for (var x = arr.length - 1; x > 0; x--) {
+                var holder = Math.floor(Math.random() * (x + 1));
+                var temp = arr[x];
+                arr[x] = arr[holder];
+                arr[holder] = temp;
+            }
+            return arr;
+        }
+        //End of shuffle Simple Array
+    </script>
+
+    <script src="https://kit.fontawesome.com/f4a78572ad.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

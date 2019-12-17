@@ -46,7 +46,7 @@
                         <a href="#" onClick="modBy()" class="btn btn-outline-warning btn-lg text-capitalize">modulus</a>
                         <a href="#" onClick="clearBy()" class="btn btn-outline-danger btn-lg text-capitalize">Clear</a>
                     </div>
-                    <div class="container bg-primary m-2" id="output"></div>
+                    <div class="container bg-white m-2" id="output"></div>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
                 <div class="col">
                     <h1 class="m-3">Shuffle Simple Array</h1>
                     <a href="#" onClick="start()" class="btn btn-outline-warning btn-lg text-capitalize">Start</a>
-                    <div class="container bg-primary m-2" id="shuffleOutput">shuffleOutput</div>
+                    <div class="container bg-white m-2" id="shuffleOutput">shuffleOutput</div>
                 </div>
             </div>
         </div>
@@ -82,12 +82,33 @@
                         <a href="#" onClick="startCrack()"
                             class="btn btn-outline-danger btn-lg text-capitalize">Start</a>
                     </div>
-                    <div class="container bg-primary m-2" id="GameOutput"></div>
+                    <div class="container bg-white m-2" id="GameOutput"></div>
+                    <h6>(H : High / L : Low)</h6>
                 </div>
             </div>
         </div>
     </div>
     <!-- End of Code Cracking Game -->
+
+    <!-- Create Card Game -->
+    <div class="container-fluid bg-secondary text-center py-3">
+        <div class="container">
+            <div class="row height align-items-center text-white">
+                <div class="col">
+                    <div id="start"></div> How many Players ?
+                    <input type="number" id="players" min="1" max="5" value="3">
+                    <h1 class="m-3"> Create Card Game</h1>
+                    <div class="m-3">
+                        <a id="btnDeal" href="#" onClick="startDeal()"
+                            class="btn btn-outline-warning btn-lg text-capitalize">Start
+                            Deal</a>
+                    </div>
+                    <div class="container bg-white m-2" id="DealOutput"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Create Card Game -->
 
     <script>
         //Simple Calculator
@@ -172,7 +193,7 @@
         for (var x = 0; x < 3; x++) {
             cCode.push(Math.floor(Math.random() * 9));
         }
-        GameOutput.innerHTML = cCode;
+        ///GameOutput.innerHTML = cCode;
 
         function startCrack() {
             count = 0;
@@ -201,6 +222,73 @@
             }
         }
         //End of Code Cracking Game
+
+        // Create Card Game
+        var suits = ["spades", "hearts", "clubs", "diams"];
+        var cardFace = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+        var players = [];
+
+        function startDeal() {
+            players = [];
+            var num = Number(document.getElementById("players").value);
+            for (var i = 0; i < num; i++) {
+                players[i] = [];
+            }
+            var cards = buildCards();
+            shuffleCards(cards);
+            deal(cards);
+        }
+
+        function buildCards() {
+            var cards = [];
+            for (s in suits) {
+                var bgColor = (suits[s] == "hearts" || suits[s] == "diams") ? "red" : "black";
+                for (c in cardFace) {
+                    var card = {
+                        suit: suits[s],
+                        num: cardFace[c],
+                        bgColor: bgColor,
+                        v: (Number(c) + 2)
+                    }
+                    cards.push(card);
+                }
+            }
+            return cards;
+        }
+
+        function shuffleCards(array) {
+            for (var x = array.length - 1; x > 0; x--) {
+                var ii = Math.floor(Math.random() * (x + 1));
+                var temp = array[x];
+                array[x] = array[ii];
+                array[ii] = temp;
+            }
+            return array;
+        }
+
+        function deal(cards) {
+            var num = players.length;
+            var DealOutput = document.getElementById("DealOutput");
+            var p = 0;
+            for (var i = 0; i < cards.length; i++) {
+                players[p].push(cards[i]);
+                p++;
+                if (p >= num) {
+                    p = 0;
+                }
+            }
+            for (var i = 0; i < num; i++) {
+                DealOutput.innerHTML += "<br>Players : " + (i + 1) + "<br>";
+                for (var x = 0; x < players[i].length; x++) {
+                    var p = players[i][x];
+                    DealOutput.innerHTML += "<span style=\"color:" + p.bgColor + "\">" + p.num + "&" + p.suit +
+                        "; </span>";
+                }
+                DealOutput.innerHTML += "<br>";
+            }
+            DealOutput.innerHTML += "**********************************************";
+        }
+        //End of Create Cart Game
     </script>
 
     <script src="https://kit.fontawesome.com/f4a78572ad.js" crossorigin="anonymous"></script>

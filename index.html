@@ -52,6 +52,7 @@
         </div>
     </div>
     <!-- End of Simple Calculator -->
+
     <!-- shuffle Simple Array -->
     <div class="container-fluid bg-info text-center py-3">
         <div class="container">
@@ -65,6 +66,29 @@
         </div>
     </div>
     <!-- End of shuffle Simple Array -->
+
+    <!-- Code Cracking Game -->
+    <div class="container-fluid bg-warning text-center py-3">
+        <div class="container">
+            <div class="row height align-items-center">
+                <div class="col">
+                    <h1 class="m-3"> Simple Code Cracking Game</h1>
+                    <div>
+                        <input class="col-sm-3" type="text" id="code1" value="0">
+                        <input class="col-sm-3" type="text" id="code2" value="0">
+                        <input class="col-sm-3" type="text" id="code3" value="0">
+                    </div>
+                    <div class="m-3">
+                        <a href="#" onClick="startCrack()"
+                            class="btn btn-outline-danger btn-lg text-capitalize">Start</a>
+                    </div>
+                    <div class="container bg-primary m-2" id="GameOutput"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Code Cracking Game -->
+
     <script>
         //Simple Calculator
         let output = document.getElementById("output");
@@ -118,7 +142,6 @@
         }
         //End of Simple Calculator
 
-
         //shuffle Simple Array
         var secretWord = ["JavaScript", "html", "css", "website", "a", 2, 4, 5, 6, 3, 4, 4, 5];
         var shuffleOutput = document.getElementById("shuffleOutput");
@@ -138,6 +161,46 @@
             return arr;
         }
         //End of shuffle Simple Array
+
+        //Code Cracking Game
+        var cCode = [];
+        var count = 0;
+        var gameOutput = document.getElementById("GameOutput");
+        var c1 = document.getElementById("code1");
+        var c2 = document.getElementById("code2");
+        var c3 = document.getElementById("code3");
+        for (var x = 0; x < 3; x++) {
+            cCode.push(Math.floor(Math.random() * 9));
+        }
+        GameOutput.innerHTML = cCode;
+
+        function startCrack() {
+            count = 0;
+            var guess = [c1.value, c2.value, c3.value];
+            for (var x = 0; x < cCode.length; x++) {
+                GameOutput.innerHTML += checkNum(guess[x], cCode[x]);
+            }
+            if (count == 3) {
+                GameOutput.innerHTML += " You Guessed it <br>";
+
+            } else {
+                GameOutput.innerHTML += "<br>";
+            }
+        }
+
+        function checkNum(a, b) {
+            if (a > b) {
+                return "L";
+            }
+            if (a < b) {
+                return "H";
+            }
+            if (a == b) {
+                count++;
+                return a;
+            }
+        }
+        //End of Code Cracking Game
     </script>
 
     <script src="https://kit.fontawesome.com/f4a78572ad.js" crossorigin="anonymous"></script>
